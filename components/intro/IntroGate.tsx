@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import IntroAnimation, { type IntroCard } from "@/components/ui/scroll-morph-hero";
 import { profile } from "@/content/content";
@@ -12,7 +12,10 @@ const SHOW_ONCE_PER_SESSION = false;
 const STORAGE_KEY = "intro-seen-v1";
 const TARGET_CARDS = 20;
 
-const IntroContext = createContext({ introDone: false });
+const IntroContext = createContext({
+  introDone: true,
+  navigateToSection: (_sectionId: string) => {},
+});
 /** Hero/Header can use this to start their load animation only after the intro lifts. */
 export const useIntro = () => useContext(IntroContext);
 
@@ -34,9 +37,14 @@ function buildCards(): IntroCard[] {
 export function IntroGate({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<Status>("checking");
   const cards = useMemo(buildCards, []);
+  const pendingSection = useRef<string | null>(null);
 
   // Decide whether to show the intro
   useEffect(() => {
+    if (pendingSection.current) {
+      setStatus("done");
+      return;
+    }
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const seen = SHOW_ONCE_PER_SESSION && sessionStorage.getItem(STORAGE_KEY) === "1";
     setStatus(reduce || seen || cards.length === 0 ? "done" : "active");
@@ -61,6 +69,31 @@ export function IntroGate({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const navigateToSection = useCallback((sectionId: string) => {
+    pendingSection.current = sectionId;
+    const hash = `#${sectionId}`;
+    if (window.location.hash !== hash) {
+      window.history.replaceState(window.history.state, "", hash);
+    }
+    setStatus("done");
+  }, []);
+
+  useEffect(() => {
+    if (status !== "done" || !pendingSection.current) return;
+    const sectionId = pendingSection.current;
+    pendingSection.current = null;
+
+    requestAnimationFrame(() => {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+      const headerHeight = document.querySelector("header")?.getBoundingClientRect().height ?? 0;
+      const top = sectionId === "home"
+        ? 0
+        : section.getBoundingClientRect().top + window.scrollY - headerHeight;
+      window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    });
+  }, [status]);
+
   // Start the website at the very top when the intro lifts
   useEffect(() => {
     if (status === "exiting") window.scrollTo(0, 0);
@@ -75,7 +108,10 @@ export function IntroGate({ children }: { children: ReactNode }) {
   }, [status, finish]);
 
   return (
-    <IntroContext.Provider value={{ introDone: status === "exiting" || status === "done" }}>
+    <IntroContext.Provider value={{
+      introDone: status === "exiting" || status === "done",
+      navigateToSection,
+    }}>
       {children}
 
       {status !== "done" && (

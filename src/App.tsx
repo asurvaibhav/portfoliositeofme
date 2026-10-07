@@ -45,6 +45,22 @@ export default function App() {
       }
       setSelectedProject(null);
       requestAnimationFrame(() => {
+        if (typeof event?.state?.scrollY === 'number') {
+          window.scrollTo({ top: event.state.scrollY, behavior: 'instant' });
+          return;
+        }
+
+        const sectionId = window.location.hash.slice(1);
+        const section = sectionId && document.getElementById(sectionId);
+        if (section) {
+          const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
+          const top = sectionId === 'home'
+            ? 0
+            : section.getBoundingClientRect().top + window.scrollY - headerHeight;
+          window.scrollTo({ top: Math.max(0, top), behavior: 'instant' });
+          return;
+        }
+
         window.scrollTo({
           top: event?.state?.scrollY ?? projectReturnScrollY.current,
           behavior: 'instant',
@@ -62,24 +78,36 @@ export default function App() {
     if (selectedProject) return;
 
     const handleScroll = () => {
-      const sections = ['home', 'about', 'work', 'services', 'blog', 'contact'];
-      const scrollPosition = window.scrollY + 200;
+      const sections = ['home', 'about', 'services', 'work', 'blog', 'contact'];
+      const activationLine = window.innerHeight * 0.35;
+      let currentSection = 'home';
 
       for (const section of sections) {
         const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
+        if (!el) continue;
+        if (el.getBoundingClientRect().top > activationLine) break;
+        currentSection = section;
+      }
+
+      setActiveSection(currentSection);
+    };
+
+    const handleHashChange = () => {
+      const sectionId = window.location.hash.slice(1);
+      if (sectionId && document.getElementById(sectionId)) {
+        setActiveSection(sectionId);
+      } else if (!sectionId) {
+        setActiveSection('home');
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    requestAnimationFrame(handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('hashchange', handleHashChange);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('hashchange', handleHashChange);
+    };
   }, [selectedProject]);
 
   const handleSelectProject = (project: any) => {

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { nav, profile } from '../data/content';
+import { useIntro } from '@/components/intro/IntroGate';
 
 interface HeaderProps {
   activeSection?: string;
 }
 
 export function Header({ activeSection = 'home' }: HeaderProps) {
+  const { introDone, navigateToSection } = useIntro();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [windowWidth, setWindowWidth] = useState(
@@ -49,6 +51,37 @@ export function Header({ activeSection = 'home' }: HeaderProps) {
   }, [mobileMenuOpen]);
 
   const isDesktop = windowWidth >= 1200;
+  const navColor = activeSection === 'home' ? '#FFFFFF' : '#0A0A0A';
+
+  const handleSectionClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    sectionId: string,
+  ) => {
+    event.preventDefault();
+    if (!introDone) {
+      navigateToSection(sectionId);
+      return;
+    }
+
+    const hash = `#${sectionId}`;
+    if (window.location.hash !== hash) {
+      window.history.pushState(
+        { ...(window.history.state ?? {}), navSection: sectionId },
+        '',
+        hash,
+      );
+    }
+
+    requestAnimationFrame(() => {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+      const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
+      const top = sectionId === 'home'
+        ? 0
+        : section.getBoundingClientRect().top + window.scrollY - headerHeight;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    });
+  };
 
   return (
     <>
@@ -56,7 +89,7 @@ export function Header({ activeSection = 'home' }: HeaderProps) {
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
           scrolled
             ? 'bg-[rgba(248,248,248,0.8)] backdrop-blur-md shadow-sm border-b border-black/5 text-[#0A0A0A]'
-            : 'bg-transparent text-white'
+            : 'bg-transparent text-[#0A0A0A]'
         }`}
         style={{
           containerType: 'inline-size',
@@ -64,16 +97,17 @@ export function Header({ activeSection = 'home' }: HeaderProps) {
         }}
       >
         <div className="w-full h-full relative flex items-center justify-between">
-          {/* Logo "Vaibhav®" - left 4%, Sora 600, 1.85cqw, white; ® raised superscript 0.8cqw */}
+          {/* Logo "Vaibhav®" - left 4%, Sora 600, 1.85cqw; ® raised superscript 0.8cqw */}
           <a
             href="#home"
+            onClick={(event) => handleSectionClick(event, 'home')}
             className="flex items-baseline font-sora font-semibold tracking-tight transition-colors hover:opacity-90 z-10"
             style={{
               position: 'absolute',
               left: '4%',
               fontSize: isDesktop && !scrolled ? '1.85cqw' : '1.35rem',
               lineHeight: 1,
-              color: scrolled ? '#0A0A0A' : '#FFFFFF',
+              color: navColor,
             }}
           >
             <span>Vaibhav</span>
@@ -103,15 +137,15 @@ export function Header({ activeSection = 'home' }: HeaderProps) {
           >
             {nav.map((item) => {
               const sectionId = item.href.replace('#', '');
-              const isActive =
-                activeSection === sectionId || (sectionId === 'home' && !scrolled);
+              const isActive = activeSection === sectionId;
               return (
                 <a
                   key={item.href}
                   href={item.href}
+                  onClick={(event) => handleSectionClick(event, sectionId)}
                   className="relative group flex items-baseline py-1 transition-opacity hover:opacity-90"
                   style={{
-                    color: scrolled ? '#0A0A0A' : '#FFFFFF',
+                    color: navColor,
                   }}
                 >
                   <span>{item.label}</span>
@@ -126,14 +160,14 @@ export function Header({ activeSection = 'home' }: HeaderProps) {
                     </sup>
                   )}
 
-                  {/* Active White Underline (0.35cqw below text) */}
+                  {/* Active section underline */}
                   {isActive && (
                     <span
                       className="absolute left-0 right-0 block pointer-events-none"
                       style={{
                         bottom: isDesktop && !scrolled ? '-0.35cqw' : '-4px',
                         height: '1px',
-                        backgroundColor: scrolled ? '#0A0A0A' : '#FFFFFF',
+                        backgroundColor: navColor,
                       }}
                     />
                   )}
@@ -145,7 +179,7 @@ export function Header({ activeSection = 'home' }: HeaderProps) {
                       style={{
                         bottom: isDesktop && !scrolled ? '-0.35cqw' : '-4px',
                         height: '1px',
-                        backgroundColor: scrolled ? '#0A0A0A' : '#FFFFFF',
+                        backgroundColor: navColor,
                       }}
                     />
                   )}
@@ -173,14 +207,14 @@ export function Header({ activeSection = 'home' }: HeaderProps) {
               className="block w-full transition-colors"
               style={{
                 height: isDesktop && !scrolled ? '0.2cqw' : '2px',
-                backgroundColor: scrolled ? '#0A0A0A' : '#FFFFFF',
+                backgroundColor: navColor,
               }}
             />
             <span
               className="block w-full transition-colors"
               style={{
                 height: isDesktop && !scrolled ? '0.2cqw' : '2px',
-                backgroundColor: scrolled ? '#0A0A0A' : '#FFFFFF',
+                backgroundColor: navColor,
                 marginTop: isDesktop && !scrolled ? '0.75cqw' : '6px',
               }}
             />
@@ -190,7 +224,7 @@ export function Header({ activeSection = 'home' }: HeaderProps) {
 
       {/* Full-Screen Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[100] bg-[#0A0A0A] text-white p-6 sm:p-12 flex flex-col justify-between animate-fade-in">
+        <div className="fixed inset-0 z-[120] bg-[#0A0A0A] text-white p-6 sm:p-12 flex flex-col justify-between animate-fade-in">
           <div className="flex items-center justify-between border-b border-white/10 pb-6 max-w-6xl w-full mx-auto">
             <span className="font-sora font-semibold text-2xl">Vaibhav®</span>
             <button
@@ -207,7 +241,10 @@ export function Header({ activeSection = 'home' }: HeaderProps) {
               <a
                 key={item.href}
                 href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(event) => {
+                  setMobileMenuOpen(false);
+                  handleSectionClick(event, item.href.slice(1));
+                }}
                 className="block font-sora font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase hover:text-gray-300 transition-colors flex items-center justify-between group border-b border-white/5 pb-4"
               >
                 <span>{item.label}</span>
