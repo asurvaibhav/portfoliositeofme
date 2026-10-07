@@ -1,11 +1,6 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { PROJECTS, ProjectItem } from '../../data/portfolioData';
-import surakshaSetuImg from '../../assets/images/project-suraksha-setu.png';
-import rlsiBcaImg from '../../assets/images/project-rlsi-bca-aeline.png';
-import cocoCoastalImg from '../../assets/images/project-coco-coastal.png';
-import cyberShieldImg from '../../assets/images/project-cybersheild-lock.png';
-import clinicCortexImg from '../../assets/images/project-cliniccortex-dashboard.png';
 
 interface ProjectsProps {
   onSelectProject: (project: ProjectItem) => void;
@@ -72,7 +67,7 @@ export function Projects({ onSelectProject }: ProjectsProps) {
             >
               <div className="aspect-square w-full rounded-[10px] overflow-hidden bg-[#F65522] relative">
                 <img
-                  src={surakshaSetuImg}
+                  src="/images/project-suraksha-setu.png"
                   alt="Suraksha Setu digital safety project artwork"
                   className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
                 />
@@ -99,7 +94,7 @@ export function Projects({ onSelectProject }: ProjectsProps) {
             >
               <div className="aspect-[4/5] sm:aspect-square w-full rounded-[10px] overflow-hidden bg-[#F65522] relative">
                 <img
-                  src={rlsiBcaImg}
+                  src="/images/project-rlsi-bca-aeline.png"
                   alt="Aeline consulting website design for AI and strategy"
                   className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
                 />
@@ -128,7 +123,7 @@ export function Projects({ onSelectProject }: ProjectsProps) {
           >
             <div className="aspect-[16/8] sm:aspect-[21/9] lg:aspect-[2.3/1] w-full rounded-[10px] overflow-hidden bg-[#F65522] relative">
               <img
-                src={cocoCoastalImg}
+                src="/images/project-coco-coastal.png"
                 alt="Coco Coastal brand campaign"
                 className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
               />
@@ -158,7 +153,7 @@ export function Projects({ onSelectProject }: ProjectsProps) {
             >
               <div className="aspect-square w-full rounded-[10px] overflow-hidden bg-[#F65522] relative">
                 <img
-                  src={cyberShieldImg}
+                  src="/images/project-cybersheild-lock.png"
                   alt="Cybersheild purple digital security lock"
                   className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
                 />
@@ -185,7 +180,7 @@ export function Projects({ onSelectProject }: ProjectsProps) {
             >
               <div className="aspect-[1.92/1] w-full rounded-[10px] overflow-hidden bg-[#F8FAFC] relative">
                 <img
-                  src={clinicCortexImg}
+                  src="/images/project-cliniccortex-dashboard.png"
                   alt="ClinicCortex dashboard showing patient management and appointment analytics"
                   className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
                 />

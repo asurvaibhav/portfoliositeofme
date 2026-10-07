@@ -1,6 +1,4 @@
 import React from 'react';
-import aboutMotionImg from '../../assets/images/about_motion_portrait_1791048134262.jpg';
-import impactPortraitImg from '../../assets/images/impact-portrait.png';
 
 // Orange 8-point asterisk glyph matching the screenshot
 function OrangeAsterisk({ className = "w-4 h-4" }: { className?: string }) {
@@ -81,7 +79,7 @@ export function Impact() {
                 {/* Motion Image Card */}
                 <div className="relative rounded-[16px] overflow-hidden aspect-[4/5] shadow-[0_10px_35px_rgba(0,0,0,0.06)] bg-[#C6490F]">
                   <img
-                    src={aboutMotionImg}
+                    src="/images/about_motion_portrait_1791048134262.jpg"
                     alt="User experience motion visual"
                     className="w-full h-full object-cover"
                   />
@@ -106,7 +104,7 @@ export function Impact() {
               {/* Top-Right Portrait on the orange hero palette */}
               <div className="w-[170px] sm:w-[210px] lg:w-[230px] aspect-[3/4] rounded-[16px] overflow-hidden shadow-[0_10px_35px_rgba(0,0,0,0.06)] shrink-0 bg-gradient-to-br from-[#C6490F] via-[#E8501F] to-[#F56030]">
                 <img
-                  src={impactPortraitImg}
+                  src="/images/impact-portrait.png"
                   alt="Vaibhav standing with arms crossed"
                   className="w-full h-full object-contain object-bottom"
                 />

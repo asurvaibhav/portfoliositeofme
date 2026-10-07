@@ -1,6 +1,4 @@
 import React from 'react';
-import silhouetteProfileImg from '../../assets/images/bento_silhouette_profile_1791099155535.jpg';
-import prismaticBlurImg from '../../assets/images/bento_prismatic_blur_1791099177729.jpg';
 
 // Orange 8-point asterisk glyph matching the screenshot
 function OrangeAsterisk({ className = "w-3.5 h-3.5" }: { className?: string }) {
@@ -116,7 +114,7 @@ export function ResultsBento() {
           <div className="relative rounded-[16px] overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.03)] border border-black/[0.04] flex flex-col justify-between p-6 sm:p-7 min-h-[460px] lg:min-h-[510px]">
             {/* Background Image */}
             <img
-              src={prismaticBlurImg}
+              src="/images/bento_prismatic_blur_1791099177729.jpg"
               alt="Prismatic motion blur"
               className="w-full h-full object-cover absolute inset-0 select-none pointer-events-none"
             />
@@ -191,7 +189,7 @@ export function ResultsBento() {
             {/* Card 3A: Profile Poster (Vaibhav ® / FULL-STACK DEVELOPER) */}
             <div className="relative rounded-[16px] overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.03)] border border-black/[0.04] aspect-[4/3] sm:aspect-[16/11] lg:aspect-auto lg:h-[310px] flex flex-col justify-between p-6 sm:p-7 text-white select-none">
               <img
-                src={silhouetteProfileImg}
+                src="/images/bento_silhouette_profile_1791099155535.jpg"
                 alt="Vaibhav Profile"
                 className="w-full h-full object-cover absolute inset-0 pointer-events-none"
               />

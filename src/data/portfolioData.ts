@@ -1,5 +1,4 @@
 import { profile, nav, stats, testimonials, posts, clientLogos } from './content';
-import zentixAppScreens from '../assets/images/project-zentix-app-screens.png';
 export { profile, nav, stats, testimonials, posts, clientLogos };
 
 export interface CaseStudyData {
@@ -59,17 +58,17 @@ export interface ProcessStep {
 }
 
 export const IMAGES = {
-  heroPortrait: '/src/assets/images/hero_portrait_profile_1791048121984.jpg',
-  surakshaSetu: '/src/assets/images/project-suraksha-setu.png',
-  cyberShield: '/src/assets/images/project-cybersheild-lock.png',
-  cocoCoastal: '/src/assets/images/project-coco-coastal.png',
-  aboutMotion: '/src/assets/images/about_motion_portrait_1791048134262.jpg',
-  zentixDevice: zentixAppScreens,
-  smartpayLilies: '/src/assets/images/project_smartpay_lilies_1791098793863.jpg',
-  shopeaseEditorial: '/src/assets/images/project_shopease_editorial_1791048160943.jpg',
-  herdoModule: '/src/assets/images/project_herdo_module_1791098808505.jpg',
-  fittrackSculpture: '/src/assets/images/project_fittrack_sculpture_1791048172050.jpg',
-  clinicCortexDashboard: '/src/assets/images/project-cliniccortex-dashboard.png',
+  heroPortrait: '/images/hero_portrait_profile_1791048121984.jpg',
+  surakshaSetu: '/images/project-suraksha-setu.png',
+  cyberShield: '/images/project-cybersheild-lock.png',
+  cocoCoastal: '/images/project-coco-coastal.png',
+  aboutMotion: '/images/about_motion_portrait_1791048134262.jpg',
+  zentixDevice: '/images/project-zentix-app-screens.png',
+  smartpayLilies: '/images/project_smartpay_lilies_1791098793863.jpg',
+  shopeaseEditorial: '/images/project_shopease_editorial_1791048160943.jpg',
+  herdoModule: '/images/project_herdo_module_1791098808505.jpg',
+  fittrackSculpture: '/images/project_fittrack_sculpture_1791048172050.jpg',
+  clinicCortexDashboard: '/images/project-cliniccortex-dashboard.png',
 };
 
 export const SERVICES: ServiceItem[] = [

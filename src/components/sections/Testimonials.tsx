@@ -94,7 +94,7 @@ export function Testimonials() {
                 <div className="flex items-center gap-4 pt-4 border-t border-black/10">
                   <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 shrink-0 border border-black/10">
                     <img
-                      src={item.avatar || '/src/assets/images/about_motion_portrait_1791048134262.jpg'}
+                      src={item.avatar || '/images/about_motion_portrait_1791048134262.jpg'}
                       alt={item.name}
                       className="w-full h-full object-cover"
                     />
