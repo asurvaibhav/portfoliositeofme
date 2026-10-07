@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%" fill="none">
+  <!-- Background Card -->
+  <rect width="400" height="300" rx="16" fill="#F8DAD2" opacity="0.25"/>
+
+  <!-- Git Branches -->
+  <g transform="translate(40, 60)">
+    <!-- Main branch line -->
+    <path d="M20 180 V20" stroke="#0A0A0A" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="20" cy="180" r="8" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="3"/>
+    <circle cx="20" cy="100" r="8" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="3"/>
+
+    <!-- Feature Branch -->
+    <path d="M20 140 C50 140 70 120 70 90 V60 C70 40 50 20 20 20" stroke="#F63E04" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="70" cy="90" r="8" fill="#F63E04" stroke="#0A0A0A" stroke-width="2"/>
+    
+    <!-- Merge commit -->
+    <circle cx="20" cy="20" r="10" fill="#F63E04"/>
+    <path d="M16 20 L19 23 L25 17" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Flow Arrow to Cloud -->
+  <path d="M140 110 H190 M180 100 L195 110 L180 120" stroke="#F63E04" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Cloud Platform & Deployment Rocket -->
+  <g transform="translate(200, 50)">
+    <!-- Cloud base -->
+    <path d="M25 110 C10 110 0 98 0 83 C0 70 10 58 25 58 C30 35 52 18 80 18 C108 18 130 35 135 58 C150 58 160 70 160 83 C160 98 150 110 135 110 Z" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="3"/>
+    
+    <!-- Check mark inside cloud -->
+    <rect x="50" y="55" width="60" height="60" rx="30" fill="#0A0A0A"/>
+    <path d="M68 85 L76 93 L92 75" stroke="#F63E04" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Success Status Tag -->
+  <g transform="translate(230, 200)">
+    <rect width="130" height="36" rx="18" fill="#0A0A0A"/>
+    <circle cx="22" cy="18" r="6" fill="#F63E04"/>
+    <text x="36" y="22" fill="#FFFFFF" font-family="sans-serif" font-size="12" font-weight="bold">DEPLOYED</text>
+  </g>
+</svg>
