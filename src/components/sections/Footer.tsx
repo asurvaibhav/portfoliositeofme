@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { profile } from '../../data/portfolioData';
+import CritterStrip from "@/components/ui/critter-strip";
 
 // Custom circled "R" matching the exact heavy border and bold letter in the screenshot
 function CircledR({ className = "w-10 h-10 sm:w-14 sm:h-14 lg:w-20 lg:h-20" }: { className?: string }) {
@@ -212,6 +213,9 @@ export function Footer() {
         </div>
 
       </div>
+
+      {/* Fuzzy critters strip — sits in the light area, just above the black bar */}
+      <CritterStrip />
 
       {/* FULL-WIDTH SOLID BLACK BOTTOM BAR */}
       <div className="w-full bg-[#0A0A0A] py-4 sm:py-5 px-5 text-center text-xs sm:text-[13px] font-sora text-white/90 font-medium">
